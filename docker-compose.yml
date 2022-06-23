@@ -1,0 +1,18 @@
+version: "3"
+services:
+    "front-rep671-development":
+        container_name: "front-rep671-development"
+        image: "danielsrod/httpd-node14"
+        ports:
+            - "9001:80"
+            - "9002:443"
+        volumes:
+            - "./dist/:/usr/local/apache2/htdocs"
+            - "./:/application"
+        networks: ["front-rep671-development-inet"]
+networks:
+    front-rep671-development-inet:
+        ipam:
+            driver: "default"
+            config:
+                - subnet: "172.26.0.12/24"
