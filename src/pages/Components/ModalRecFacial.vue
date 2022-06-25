@@ -174,8 +174,13 @@ export default {
                 }
                 this.axios.post('/registrarPonto', bodyFormData, config)
                 .then((response) => {
-                    th.isLoading = false 
-                    th.showSwal2('auto-close', 'Ponto Registrado', response.data.msg, 'success')
+                    th.isLoading = false
+                    if(response.data.status){
+                        th.showSwal2('auto-close', 'Ponto Registrado', response.data.msg, 'success')
+                    }else{
+                        th.showSwal2('auto-close', 'Erro', response.data.msg, 'error')
+                    }
+                    
 
                     setTimeout(() => {
                         location.reload()

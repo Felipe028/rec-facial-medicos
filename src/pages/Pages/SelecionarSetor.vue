@@ -158,6 +158,31 @@ export default {
       this.$cookies.set("id_setor", this.setor);
       this.$cookies.set("id_turno", this.turno);
       this.$router.push("/registrarPonto/colaborador");
+/*       let th = this;
+      this.isLoading = true;
+
+      let form = {
+        id_setor: this.setor,
+        id_turno: this.turno,
+        cod: this.$cookies.get('cod')
+      }
+
+      this.axios
+        .post("/verificarVagasTurnoSetor", form)
+        .then((response) => {
+          th.isLoading = false
+          th.listTurnos = response.data.dados
+        })
+        .catch((err) => {
+          th.isLoading = false;
+          th.showSwal(
+            "auto-close",
+            "Erro",
+            "Erro ao recuperar setores!",
+            "error"
+          );
+        });
+ */      
     },
 
 
