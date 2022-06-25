@@ -4,4 +4,5 @@ export default {
   KEY_LEVEL_5: 'R5cCI6IkpX',
   KEY_LEVEL_7: 'NOLkSXlT6M',
   KEY_LEVEL_10: 'ty2K3h4JNS',
+  KEY_RECORD: 'recFacialSecret0101Samel'
 };

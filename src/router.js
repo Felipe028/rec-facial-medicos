@@ -4,6 +4,7 @@ import RegistrarPontoFuncionario from "@/pages/Pages/RegistrarPontoFuncionario.v
 import RegistrarPontoEmpresa from "@/pages/Pages/RegistrarPontoEmpresa.vue";
 
 const Login = () => import("@/pages/Pages/Login.vue");
+const SelecionarSetor = () => import("@/pages/Pages/SelecionarSetor.vue");
 
 const ReconhecimentoFacial = () => import("@/pages/Pages/RegistrarPontoFuncionario/ReconhecimentoFacial.vue");
 const ReconhecimentoFacialEmpresa = () => import("@/pages/Pages/RegistrarPontoEmpresa/ReconhecimentoFacialEmpresa.vue");
@@ -32,6 +33,15 @@ let authPages = {
       meta: {
         levelAccess: 10,
         public: true
+      }
+    },
+    {
+      path: '/selecionarSetor',
+      name: 'Selecionar Setor',
+      component: SelecionarSetor,
+      meta: {
+        levelAccess: 10,
+        public: false
       }
     },
   ]

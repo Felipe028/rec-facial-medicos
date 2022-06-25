@@ -68,10 +68,7 @@
                     <span slot="label" @click="showCamera = false">
                       <i class="tim-icons icon-paper"></i>Ultimos Registros
                     </span>
-                    Efficiently unleash cross-media information without cross-media
-                    value. Quickly maximize timely deliverables for real-time schemas.
-                    <br /><br />Dramatically maintain clicks-and-mortar solutions
-                    without functional solutions.
+                    Últimos registros
                   </tab-pane>
                 </tabs>
               </card>
@@ -97,6 +94,7 @@ import Carregando from "../../src/pages/Loads/Carregando.vue";
 import { Card, BasePagination, TabPane, Tabs, Collapse, CollapseItem } from "@/components/index";
 import moment from 'moment';
 import ModalRecFacial from '../../src/pages/Components/ModalRecFacial.vue';
+
 
 import { Table, TableColumn } from "element-ui";
 

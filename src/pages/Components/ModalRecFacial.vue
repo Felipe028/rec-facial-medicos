@@ -155,42 +155,35 @@ export default {
 
                 let th = this
                 this.isLoading = true
+
+                let w1 = jwt.sign({ foo: 'bar', exp: Math.floor(Date.now() / 1000) + (30) }, globalVariable.KEY_RECORD)
+
+                let config = {
+                    headers: {
+                        token: w1,
+                    }
+                };
                 
                 let bodyFormData = {
-                    setDB: this.$cookies.get('db'),
-                    data_batida: this.moment(new Date()).format('DD/MM/YYYY'),
-                    hora_batida: this.moment(new Date()).format('HH:mm:ss'),
                     latitude: this.coordenadas.lat,
                     longitude: this.coordenadas.lng,
-                    endereco_por_extenso: "xxx",
-                    selfie_batida: img,
-                    id_empregados: this.$cookies.get('idEmpregado'),
-                    id_empregador: this.$cookies.get('idEmpregador'),
-                    id_tipo_batida: "1"
+                    cod: this.$cookies.get('cod'),
+                    cpf: this.$cookies.get('cpf'),
+                    id_setor: this.$cookies.get('id_setor'),
+                    id_turno: this.$cookies.get('id_turno'),
                 }
-                // console.log("bodyFormData")
-                // console.log(bodyFormData)
-                this.axios.post('/api/movimentacoes/baterPonto', bodyFormData)
+                this.axios.post('/registrarPonto', bodyFormData, config)
                 .then((response) => {
                     th.isLoading = false 
-                    let ms = `<i class="tim-icons icon-email-85"></i> Seu comprovante de ponto foi enviado ao seu email<br/>`
-                    + response.data.data.dados_batida[0].DATA_BATIDA + " - " + response.data.data.dados_batida[0].HORA_BATIDA
-                    th.showSwal2('auto-close', 'Ponto Registrado', ms, 'success')
+                    th.showSwal2('auto-close', 'Ponto Registrado', response.data.msg, 'success')
+
                     setTimeout(() => {
-                        jwt.verify(this.$cookies.get('w_'), globalVariable.KEY_LEVEL_7, function(err, decoded) {
-                            if(decoded){
-                                location.reload()
-                            }else{
-                                th.$root.$emit('responseRecFacial', true)
-                            }
-                        })
-                    }, 3500)
-                    
+                        location.reload()
+                    }, 3000)
                 })
                 .catch((err) => {
                     th.isLoading = false
                     th.showSwal2('auto-close', 'Erro', 'Erro ao registrar ponto!', 'error')
-                    // location.reload()
                 })
             })
             .catch((err) => {
@@ -311,13 +304,16 @@ export default {
                 .then(function(response) {
                     current.isLoading = false
                     if(response.data.default_face_matching_classification && response.data.message == "User successfully registered"){
+                        
                         // current.showSwal('success-message-register')
+                        //cadastro
                         current.registrarPonto(img)
                     } else if (response.data.default_face_matching_classification && response.data.message == "The classification succeeded") {
                         // current.showSwal('success-message-recognition')
+                        //update
                         current.registrarPonto(img)
                     } else {
-                        current.showSwal('error-message')
+                        current.showSwal2('auto-close', 'Erro', 'Usuário não reconhecido!', 'error')
                         // current.registrarPonto(img)
                     }
                 })
@@ -325,6 +321,7 @@ export default {
                 })
                 .catch(function(/* e */) {
                     current.isLoading = false
+                    th.showSwal2('auto-close', 'Erro', message, 'error')
                     // current.showSwal('error-message')
                 });
                 },

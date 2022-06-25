@@ -63,7 +63,6 @@ const router = new VueRouter({
 
 
 router.beforeEach((nextPage, beforePage, next) => {
-  // const token = getCookie("token")
   const levelAccess = getCookie("levelAccess")
   var validToken = false
   var lvlAccess = 0

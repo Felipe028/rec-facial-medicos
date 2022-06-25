@@ -3,7 +3,7 @@
     <div
       class="col-lg-4 col-md-6 ml-auto mr-auto"
     >
-      <form @submit.prevent="loginFuncionarioF">
+      <form @submit.prevent="selecionarSetor">
         <card class="card-login card-white text-left">
           <template slot="header">
             <!-- <img src="img/repL1.png" class="card-img" width="50"/> -->
@@ -14,49 +14,39 @@
           </div>
 
           <div>
-            <base-input
-              v-show="tipoLoginFunc === 'false'"
-              type="tel"
-              v-mask="'##.###.###/####-##'"
-              :masked="false"
-              v-model="loginFuncionario.cnpj"
-              placeholder="CNPJ"
-              addon-left-icon="tim-icons icon-bank"
+            <el-select
+              class="select-primary w-100"
+              size="large"
+              placeholder="Selecione o setor"
+              v-model="setor"
             >
-            </base-input>
+              <el-option
+                v-for="option in listSetores"
+                class="select-primary"
+                :value="option.ID_SETOR"
+                :label="option.NOME_SETOR"
+                :key="option.NOME_SETOR"
+              >
+              </el-option>
+            </el-select>
 
-            <base-input
-              v-if="tipoLoginFunc === 'true'"
-              ref="cpf22"
-              v-model="loginFuncionario.cpf"
-              type="tel"
-              v-mask="'###.###.###-##'"
-              :masked="false"
-              placeholder="CPF"
-              addon-left-icon="tim-icons icon-badge"
+            <el-select
+              class="select-primary w-100 mt-3"
+              size="large"
+              placeholder="Selecione o turno"
+              v-model="turno"
             >
-            </base-input>
-
-
-            <base-input
-              v-show="tipoLoginFunc === 'false'"
-              name="password"
-              v-model="loginFuncionario.senha"
-              type="password"
-              placeholder="Senha"
-              addon-left-icon="tim-icons icon-lock-circle"
-            >
-            </base-input>
+              <el-option
+                v-for="option in listTurnos"
+                class="select-primary"
+                :value="option.ID_TURNO"
+                :label="option.NOME_TURNO"
+                :key="option.NOME_TURNO"
+              >
+              </el-option>
+            </el-select>
           </div>
 
-          <div class="col-sm-10 checkbox-radios d-flex flex-row p-0">
-            <base-radio name="true" v-model="tipoLoginFunc" class="mr-3"
-              >Colaborador</base-radio
-            >
-            <!-- <base-radio name="false" v-model="tipoLoginFunc"
-              >Empresa</base-radio
-            > -->
-          </div>
 
           <div slot="footer">
             <base-button
@@ -97,8 +87,13 @@ export default {
     return {
       isLoading: false,
       listSetores: [],
+      listTurnos: [],
+      setor: "",
+      turno: "",
 
 
+      empresaSelecionada: {},
+      listEmpresas: [],
       tipoLogin: "false", //0 - cpf / 1 - cnpj
       tipoLoginFunc: "true",
       coordenadas: [],
@@ -106,6 +101,11 @@ export default {
         cnpj: "",
         senha: "",
         cpf: "",
+      },
+      loginEmpresa: {
+        cnpj: "",
+        cpf: "",
+        senha: "",
       },
       model: {
         cnpj: "",
@@ -116,11 +116,16 @@ export default {
     };
   },
   mounted() {
+    this.getSetores()
+    this.getTurnos()
     this.$nextTick(() => this.$refs.cpf22.focus());
 
     if (document.body.classList != "sidebar-mini") {
       document.body.classList.toggle("sidebar-mini");
     }
+    /* this.$root.$on('voltarMenuLogin', () => {
+      this.itemMenu = 1
+    }); */
 
     this.$getLocation().then((coordinates) => {
       this.coordenadas = coordinates;
@@ -129,21 +134,10 @@ export default {
   },
   methods: {
     disabledBtnEntrarF() {
-      if (this.tipoLoginFunc === "true") {
-        if (this.loginFuncionario.cpf.length == 14) {
-          return false;
-        } else {
-          return true;
-        }
+      if (this.setor === "" || this.turno === "") {
+        return true;
       } else {
-        if (
-          this.loginFuncionario.cnpj.length == 18 &&
-          this.loginFuncionario.senha.length > 5
-        ) {
-          return false;
-        } else {
-          return true;
-        }
+        return false
       }
     },
 
@@ -160,39 +154,56 @@ export default {
     },
 
 
-    async loginFuncionarioF() {
+    selecionarSetor(){
+      this.$cookies.set("id_setor", this.setor);
+      this.$cookies.set("id_turno", this.turno);
+      this.$router.push("/registrarPonto/colaborador");
+    },
+
+
+    getSetores() {
       let th = this;
       this.isLoading = true;
 
-      let bodyFormData = {
-        cpf: this.loginFuncionario.cpf.replace(/[. - / - -]/g, ""),
-      };
-      this.axios.post("/login", bodyFormData)
+      this.axios
+        .get("/getSetores")
         .then((response) => {
-          th.isLoading = false;
-          if(response.data.status){
-            th.$cookies.set("nome", response.data.dados[0].NOME_PROFISSIONAL);
-            th.$cookies.set("cod", response.data.dados[0].ID_PROFISSIONAL);//id funcionario
-            th.$cookies.set("cpf", response.data.dados[0].CPF);
-            const id =response.data.dados[0].ID_PROFISSIONAL
-            let levelAccess = jwt.sign(
-              { id }, 
-              globalVariable.KEY_LEVEL_10, 
-              {expiresIn: 2000} // expires in 1min
-            );
-
-            th.$cookies.set("levelAccess", levelAccess);
-           
-            th.$router.push("/selecionarSetor");
-          }else{
-            th.showSwal("auto-close", "Erro", response.data.msg, "error");
-          }
+          th.isLoading = false
+          th.listSetores = response.data.dados
         })
         .catch((err) => {
           th.isLoading = false;
-          th.showSwal("auto-close", "Erro", "Usuario não encontrado!", "error");
+          th.showSwal(
+            "auto-close",
+            "Erro",
+            "Erro ao recuperar setores!",
+            "error"
+          );
         });
     },
+
+
+    getTurnos() {
+      let th = this;
+      this.isLoading = true;
+
+      this.axios
+        .get("/getTurnos")
+        .then((response) => {
+          th.isLoading = false
+          th.listTurnos = response.data.dados
+        })
+        .catch((err) => {
+          th.isLoading = false;
+          th.showSwal(
+            "auto-close",
+            "Erro",
+            "Erro ao recuperar setores!",
+            "error"
+          );
+        });
+    },
+    
 
   },
 };
