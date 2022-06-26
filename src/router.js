@@ -85,7 +85,7 @@ const routes = [
   authPages,
   // registrarPontoFuncionarioPages,
   // RegistrarPontoEmpresaPages,
-  /* {
+  {
     path: "/",
     component: DashboardLayout,
     children: [
@@ -142,7 +142,7 @@ const routes = [
         }
       },
     ]
-  } */
+  }
 ];
 
 export default routes;
