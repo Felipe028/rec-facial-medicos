@@ -73,16 +73,9 @@
                 </tabs>
               </card>
 
-
-
-
-
-
             </div>
           </div>
-          
         </card>
-        
       </div>
       
     </div>

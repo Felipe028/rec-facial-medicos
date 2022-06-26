@@ -2,7 +2,7 @@
   <div class="sidebar" :data="backgroundColor">
     <div class="sidebar-wrapper text-left">
       <div class="logo">
-        <img src="../../assets/img/logo.png">
+        <img src="../../assets/img/logo-sam.png">
       </div>
       <ul class="nav">
         <slot name="links">
