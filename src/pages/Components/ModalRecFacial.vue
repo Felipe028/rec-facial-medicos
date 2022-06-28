@@ -160,8 +160,8 @@ export default {
             };
             
             let bodyFormData = {
-                latitude: "",
-                longitude: "",
+                latitude: 1,
+                longitude: 1,
                 cod: this.$cookies.get('cod'),
                 cpf: this.$cookies.get('cpf'),
                 id_setor: this.$cookies.get('id_setor'),
