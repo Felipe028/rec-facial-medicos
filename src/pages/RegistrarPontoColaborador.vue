@@ -18,7 +18,7 @@
           
           </div>
           <div class="mt-3 p-2">
-            <p class="text-muted"><strong>Funcionário:</strong> {{this.$cookies.get('nome')}}</p>
+            <p class="text-muted"><strong>Médico:</strong> {{this.$cookies.get('nome')}}</p>
             <p class="text-muted"><i class="tim-icons icon-calendar-60"></i> {{moment(new Date()).add(1, 'hour').format('DD/MM/YYYY')}} - <i class="tim-icons icon-watch-time"></i> {{horaAgora}}</p>
           </div>
           <!-- <div class="mt-2">
@@ -43,7 +43,7 @@
               <card>
                 <template slot="header">
                   <!-- <h5 class="card-category text-left">Registro eletrônico de ponto</h5> -->
-                  <h3 class="card-title text-left">Registro eletrônico de ponto</h3>
+                  <h3 class="card-title text-left">Checkin Médico</h3>
                 </template>
                 <tabs
                   type="success"

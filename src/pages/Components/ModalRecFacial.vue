@@ -148,6 +148,47 @@ export default {
 
 
         async registrarPonto(img){
+            let th = this
+            this.isLoading = true
+
+            let w1 = jwt.sign({ foo: 'bar', exp: Math.floor(Date.now() / 1000) + (30) }, globalVariable.KEY_RECORD)
+
+            let config = {
+                headers: {
+                    token: w1,
+                }
+            };
+            
+            let bodyFormData = {
+                latitude: this.coordenadas.lat,
+                longitude: this.coordenadas.lng,
+                cod: this.$cookies.get('cod'),
+                cpf: this.$cookies.get('cpf'),
+                id_setor: this.$cookies.get('id_setor'),
+                id_turno: this.$cookies.get('id_turno'),
+            }
+            this.axios.post('/registrarPonto', bodyFormData, config)
+            .then((response) => {
+                th.isLoading = false
+                if(response.data.status){
+                    th.showSwal2('auto-close', 'Ponto Registrado', response.data.msg, 'success')
+                }else{
+                    th.showSwal2('auto-close', 'Erro', response.data.msg, 'error')
+                }
+                
+
+                setTimeout(() => {
+                    location.reload()
+                }, 3000)
+            })
+            .catch((err) => {
+                th.isLoading = false
+                th.showSwal2('auto-close', 'Erro', 'Erro ao registrar ponto!', 'error')
+            })
+        },
+
+
+        /* async registrarPonto(img){
             let thi = this
             await this.$getLocation()
             .then(coordinates => {
@@ -194,11 +235,7 @@ export default {
             .catch((err) => {
                 thi.showSwal2('auto-close', 'Erro', 'Falha ao obter sua localização!', 'error')
             })
-
-            
-            // this.loginFuncionario.cnpj = this.loginFuncionario.cnpj.replace(/[. - / - -]/g, '')
-            // this.loginFuncionario.cpf = this.loginFuncionario.cpf.replace(/[. - -]/g, '')
-        },
+        }, */
 
 
         showSwal2(type, title, text, typeMsg) {
