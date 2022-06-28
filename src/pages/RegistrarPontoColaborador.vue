@@ -167,12 +167,12 @@ export default {
   
 
     this.carregarFotoF()
-    this.$root.$on('checkFacial', (data) => {
+    /* this.$root.$on('checkFacial', (data) => {
       if(data){
         this.showRecFacial = 3
         this.listarPontosFuncionarios(this.moment(new Date()).format('MM'))
       }
-    });
+    }); */
 
     setInterval(() => {
       this.horaAgora = moment(new Date()).add(0, 'hour').format('HH:mm:ss')
@@ -230,7 +230,7 @@ export default {
     },
 
 
-    listarPontosFuncionarios(mes){
+    /* listarPontosFuncionarios(mes){
       let th = this
       this.isLoading = true
       
@@ -272,7 +272,7 @@ export default {
       .catch((err) => {
         th.isLoading = false
       })
-    },
+    }, */
 
 
   },

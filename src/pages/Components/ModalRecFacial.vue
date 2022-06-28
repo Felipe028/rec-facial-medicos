@@ -147,7 +147,7 @@ export default {
         },
 
 
-        async registrarPonto(img){
+        registrarPonto(img){
             let th = this
             this.isLoading = true
 
@@ -160,8 +160,8 @@ export default {
             };
             
             let bodyFormData = {
-                latitude: this.coordenadas.lat,
-                longitude: this.coordenadas.lng,
+                latitude: "",
+                longitude: "",
                 cod: this.$cookies.get('cod'),
                 cpf: this.$cookies.get('cpf'),
                 id_setor: this.$cookies.get('id_setor'),
