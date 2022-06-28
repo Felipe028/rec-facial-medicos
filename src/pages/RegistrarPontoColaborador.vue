@@ -55,7 +55,7 @@
                 >
                   <tab-pane>
                     <span slot="label" @click="showCamera = true">
-                      <i class="tim-icons icon-camera-18"></i>Registrar Ponto
+                      <i class="tim-icons icon-camera-18"></i>Checkin Médico
                     </span>
                     <div class="row w-100 mr-auto ml-auto">
                       <div class="col-md-6 mr-auto ml-auto">

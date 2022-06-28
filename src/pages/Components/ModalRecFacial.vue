@@ -52,7 +52,7 @@
                     block
                     size="lg"
                 >
-                    <i class="tim-icons icon-camera-18"/> Registrar Ponto
+                    <i class="tim-icons icon-camera-18"/> Checkin Médico
                 </base-button>
             </div>
         </div>
