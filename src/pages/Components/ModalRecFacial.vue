@@ -151,7 +151,7 @@ export default {
             let th = this
             this.isLoading = true
 
-            let w1 = jwt.sign({ foo: 'bar', exp: Math.floor(Date.now() / 1000) + (30) }, globalVariable.KEY_RECORD)
+            let w1 = jwt.sign({ foo: 'bar', exp: Math.floor(Date.now() / 1000) + (30) * 60 }, globalVariable.KEY_RECORD)
 
             let config = {
                 headers: {
