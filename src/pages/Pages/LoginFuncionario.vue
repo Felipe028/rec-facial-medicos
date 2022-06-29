@@ -71,7 +71,7 @@
     <div v-else>
       <div class="row">
         <div class="col d-flex justify-content-evenly">
-          <h3 class="fw-lighter">Selecione a empresa na qual você deseja registrar ponto</h3>
+          <h3 class="fw-lighter">Selecione a empresa na qual você deseja REGISTRAR CHECK IN / CHECK OUT DO PLANTÃO</h3>
         </div>
       </div>
 

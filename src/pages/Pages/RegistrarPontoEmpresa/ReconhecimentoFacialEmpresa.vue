@@ -70,7 +70,7 @@
                     <i class="tim-icons icon-heart-2"></i>
                   </base-button> -->
 
-                  <el-tooltip content="Registrar Ponto" effect="light" :open-delay="300" placement="top">
+                  <el-tooltip content="REGISTRAR CHECK IN / CHECK OUT DO PLANTÃO" effect="light" :open-delay="300" placement="top">
                     <base-button
                         @click.native="handleRecFacial(props.$index, props.row)"
                         class="edit btn-link"
