@@ -50,7 +50,7 @@ let authPages = {
 /* let registrarPontoFuncionarioPages = {
   path: "/registrarPonto",
   component: RegistrarPontoFuncionario,
-  name: "Registrar Ponto s",
+  name: "REGISTRAR CHECK IN / CHECK OUT DO PLANTÃO s",
   children: [
     {
       path: "/",
@@ -67,7 +67,7 @@ let authPages = {
 /* let RegistrarPontoEmpresaPages = {
   path: "/registraPonto",
   component: RegistrarPontoEmpresa,
-  name: "Registrar Ponto Funcionário",
+  name: "REGISTRAR CHECK IN / CHECK OUT DO PLANTÃO Funcionário",
   children: [
     {
       path: "/",
@@ -118,7 +118,7 @@ const routes = [
       },
       {
         path: "registrarPonto",
-        name: "Registrar Ponto",
+        name: "REGISTRAR CHECK IN / CHECK OUT DO PLANTÃO",
         component: RegistrarPonto,
         meta: {
           levelAccess: 10
@@ -126,7 +126,7 @@ const routes = [
       },
       {
         path: "registrarPonto/colaborador",
-        name: "Registrar Ponto",
+        name: "REGISTRAR CHECK IN / CHECK OUT DO PLANTÃO",
         component: RegistrarPontoColaborador,
         meta: {
           levelAccess: 10
@@ -134,7 +134,7 @@ const routes = [
       },
       {
         path: "registrarPonto/empresa",
-        name: "Registrar Ponto Empresa",
+        name: "REGISTRAR CHECK IN / CHECK OUT DO PLANTÃO",
         component: RegistrarPontoEmpresas,
         meta: {
           levelAccess: 7,
