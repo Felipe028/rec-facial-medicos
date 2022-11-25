@@ -66,9 +66,11 @@
 
                   <tab-pane>
                     <span slot="label" @click="showCamera = false">
-                      <i class="tim-icons icon-paper"></i>Ultimos Registros
+                      <i class="tim-icons icon-paper"></i>Folha de Ponto
                     </span>
-                    Últimos registros
+                    <div class="row w-100 mr-auto ml-auto">
+                        <FolhaPonto/>
+                    </div>
                   </tab-pane>
                 </tabs>
               </card>
@@ -87,8 +89,9 @@ import Carregando from "../../src/pages/Loads/Carregando.vue";
 import { Card, BasePagination, TabPane, Tabs, Collapse, CollapseItem } from "@/components/index";
 import moment from 'moment';
 import ModalRecFacial from '../../src/pages/Components/ModalRecFacial.vue';
+import FolhaPonto from '../components/FolhaPonto/FolhaPonto.vue';
 
-
+ 
 import { Table, TableColumn } from "element-ui";
 
 export default {
@@ -102,7 +105,8 @@ export default {
     TabPane,
     Tabs,
     Collapse,
-    CollapseItem
+    CollapseItem,
+    FolhaPonto
   },
     computed: {
     /***
